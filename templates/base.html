@@ -1,0 +1,19 @@
+<html>
+<title>
+   {% block title %} {% endblock %}
+</title>
+<nav>
+	<a href="http://set09103.napier.ac.uk:9136"> Home </a>
+        <h1> Explore civilisations and nations through history </h1>
+	<li><a href="{{ url_for('ancient_era_page') }}">Explore the Ancient Era</a>
+	<li><a href="{{ url_for('middle_era_page') }}>">Explore the Middle Era</a>
+
+</nav>
+<body>
+  <header>
+    {% block header %}{% endblock %}
+  </header>
+  
+  {% block content %} {% endblock %}
+</body>
+</html>
