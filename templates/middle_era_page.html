@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h2>{% block title %}Explore the Middle Ages!{% endblock %}</h2>
+{% endblock %}
+
+{% block content %}
+ <p> The Middle Ages includes an Early, Middle, and Late period</p>
+ <h3> Choose a period to explore:</h3>
+ <ul>
+   {% for region in regions %}
+   <li><a href=http://set09103.napier.ac.uk:9136/middle/{{region}}>{{region}}</a></li>
+   {% endfor %}
+ </ul>
+{% endblock %}
+

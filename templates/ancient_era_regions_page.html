@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h2>{% block title %}Explore the Ancient Era{% endblock %}</h2>
+{% endblock %}
+
+{% block content %}
+ <p> Choose a region to explore the civilisations living there during the {{time_period}}!</p>
+ <h3> Explore by region:</h3>
+ <ul>
+   {% for region in regions %}
+   <li><a href=http://set09103.napier.ac.uk:9136/ancient_era/{{time_period}}/{{region}}>{{region}}</a></li>
+   {% endfor %}
+ </ul>
+{% endblock %}
+

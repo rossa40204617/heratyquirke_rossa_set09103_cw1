@@ -1,0 +1,28 @@
+[
+    {
+        "name": "Ancient_Era",
+        "summary": "The Ancient Era covers the Bronze Age and the Iron Age.",
+        "time_periods": [
+            "Bronze_Age",
+            "Iron_Age"
+        ]
+    },
+    {
+        "name": "Medieval_Era",
+        "summary": "Following the Ancient Era the Medieval Era includes an Early, High, and Late period.",
+        "time_periods": [
+            "Early_period",
+            "High_period",
+            "Late_period"
+        ]
+    },
+    {
+        "name": "Modern_Era",
+        "summary": "The Modern Era follows the Medieval Era and covers an Early Modern, Late Modern and Comtemporary period(a.k.a the world today!).",
+        "time_periods": [
+            "Early_Modern_period",
+            "Late_Modern_period",
+            "Contemporary_period"
+        ]
+    }
+]

@@ -1,0 +1,40 @@
+[{
+		"name": "Olmecs",
+		"region": "central_america",
+		"time_period": "iron_age"
+	},
+
+	{
+		"name": "Maya",
+		"region": "central_america",
+		"time_period": "iron_age"
+	},
+
+	{
+		"name": "Ancient_Greece",
+		"region": "Europe",
+		"time_period": "bronze_age"
+	},
+	{
+		"name": "Etruscans",
+		"region": "Europe",
+		"time_period": "bronze_age"
+	},
+
+	{
+		"name": "Kingdom_of_Rome",
+		"region": "Europe",
+		"time_period": "iron_age"
+	},
+	{
+		"name": "Ancient_Egypt",
+		"region": "Africa",
+		"time_period": "bronze_age"
+	},
+
+	{
+		"name": "Assyrian_Empire",
+		"region": "Middle_East",
+		"time_period": "bronze_age"
+	}
+]

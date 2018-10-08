@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h2>{% block title %}Explore the {{era.name}}{% endblock %}</h2>
+{% endblock %}
+
+{% block content %}
+ <h3> Choose a time period of this Era to explore: </h3>
+ <ul>
+   {% for period in era.time_periods %}
+   <li>  </li>
+   {% endfor %}
+ </ul>
+{% endblock %}
+
