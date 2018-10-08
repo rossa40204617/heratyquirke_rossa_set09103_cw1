@@ -4,15 +4,16 @@ from era import Era
 import os
 app = Flask(__name__)
 
+@app.route('/home/')
 @app.route('/')
-def main_page():
+def home_page():
     return render_template('base.html')
 
 @app.route('/<string:era_name>/')
-def era_index_page(era_name):
+def time_period_index_page(era_name):
     eras = read_eras_from_json_file() 
     era = filter_eras_by_name(era_name, eras) 
-    return render_template('era_time_period_index_page.html', era=era)
+    return render_template('time_period_index_page.html', era=era)
 
 def filter_eras_by_name(era_name, eras = [], *args):
     for era in eras:
@@ -21,23 +22,24 @@ def filter_eras_by_name(era_name, eras = [], *args):
     abort(404)
 
 @app.route('/<string:era_name>/<string:time_period>')
-def era_region_index_page(era_name, time_period):
+def region_index_page(era_name, time_period):
     civs = read_civs_from_json_file(era_name.lower() + '.json')
     regions = get_unique_regions(civs)
-    return render_template('ancient_era_regions_page.html', time_period = time_period,  regions = regions)
+    return render_template('region_index_page.html', era_name = era_name, time_period = time_period, regions = regions)
 
 @app.route('/<string:era_name>/<string:time_period>/<string:region>/')
-def era_civilisations_index_page(era_name, time_period, region):
+def civilisations_index_page(era_name, time_period, region):
     civs = read_civs_from_json_file(era_name.lower() + '.json')
     filtered_civs = filter_civs_by_time_and_region(time_period, region , civs)
-    return render_template('era_civilisations_page.html', time_period = time_period, 
+    return render_template('civilisations_index_page.html', era_name=era_name, time_period = time_period, 
                            region = region, civs = filtered_civs)
 
 @app.route('/<string:era_name>/<string:time_period>/<string:region>/<string:civ_name>/')
 def civilisation_page(era_name, time_period, region, civ_name):
     civs = read_civs_from_json_file(era_name.lower() + '.json')
     civ = get_civ_by_name(civ_name, civs)
-    return render_template('civilisation_page.html', civ = civ)
+    return render_template('civilisation_page.html', era_name = era_name, 
+                           time_period = time_period, region = region, civ = civ)
 
 def get_civ_by_name(civ_name, civs = [], *args):
     for civ in civs:
@@ -75,16 +77,6 @@ def read_civs_from_json_file(filename):
       json_data = json.load(f)
     civs = [Civilisation(civ['name'], civ['region'], civ['time_period']) for civ in json_data]
     return civs
-
-
-
-@app.route('/medieval_era/')
-def medieval_era_page():
-    abort(404)
-
-@app.route('/modern_era/')
-def modern_era_page():
-    abort(404)
 
 if __name__ == ("__main__"):
     app.run(host='0.0.0.0', debug=True)

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h2>{% block title %}Explore the Ancient Era{% endblock %}</h2>
+  <h2>{% block title %}Explore the {{era_name}}{% endblock %}</h2>
 {% endblock %}
 
 {% block content %}
@@ -9,7 +9,7 @@
  <h3> Explore by region:</h3>
  <ul>
    {% for region in regions %}
-   <li><a href=http://set09103.napier.ac.uk:9136/ancient_era/{{time_period}}/{{region}}>{{region}}</a></li>
+   <li><a href={{ url_for('civilisations_index_page', era_name=era_name, time_period=time_period, region=region) }} >{{region}}</a></li>
    {% endfor %}
  </ul>
 {% endblock %}

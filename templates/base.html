@@ -3,9 +3,10 @@
    {% block title %} {% endblock %}
 </title>
 <nav>
-	<a href="http://set09103.napier.ac.uk:9136"> Home </a>
+	<a href={{ url_for('home_page') }}> Home </a>
         <h1> Explore civilisations and nations through history </h1>
-	<li><a href={{ url_for('era_index_page', era_name="ancient_era") }}>Explore the Ancient Era</a>
+	<li><a href={{ url_for('time_period_index_page', era_name="Ancient_Era") }}>Explore the Ancient Era</a>
+        <li><a href={{ url_for('time_period_index_page', era_name="Medieval_Era") }}>Explore the Medieval Era</a>
 </nav>
 <body>
   <header>

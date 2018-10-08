@@ -11,9 +11,9 @@
         "name": "Medieval_Era",
         "summary": "Following the Ancient Era the Medieval Era includes an Early, High, and Late period.",
         "time_periods": [
-            "Early_period",
-            "High_period",
-            "Late_period"
+            "Early_Medieval_Period",
+            "High_Medieval_Period",
+            "Late_Medieval_Period"
         ]
     },
     {

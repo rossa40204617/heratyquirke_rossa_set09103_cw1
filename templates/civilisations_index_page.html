@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h2>{% block title %}Explore the Ancient Era{% endblock %}</h2>
+  <h2>{% block title %}Explore the {{era_name}}{% endblock %}</h2>
 {% endblock %}
 
 {% block content %}
@@ -9,7 +9,7 @@
  <h3> Select a civilisation to learn its story:</h3>
  <ul>
    {% for civ in civs %}
-   <li><a href={{ url_for('era_civilisations_index_page', civ_name=civ.name) }}>{{civ.name}}</a></li>
+   <li><a href={{ url_for('civilisation_page', era_name=era_name, time_period=time_period, region=civ.region, civ_name=civ.name) }}>{{civ.name}}</a></li>
    {% endfor %}
  </ul>
 {% endblock %}
