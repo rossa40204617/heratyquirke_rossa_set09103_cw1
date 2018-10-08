@@ -1,5 +1,6 @@
 from flask import Flask, render_template, json, jsonify
 from civilisation import Civilisation
+from era import Era
 import os
 app = Flask(__name__)
 
@@ -7,10 +8,11 @@ app = Flask(__name__)
 def main_page():
     return render_template('base.html')
 
-@app.route('/<string:era>/')
-def era_index_page(era):
-    eras = read_eras_from_json_file(era + '.json') 
-    return render_template('era_index_page.html', eras = eras)
+@app.route('/<string:era_name>/')
+def era_index_page(era_name):
+    eras = read_eras_from_json_file() 
+    era = filter_eras_by_name(era_name, eras) 
+    return render_template('era_time_period_index_page.html', era=era)
 
 def filter_eras_by_name(era_name, eras = [], *args):
     for era in eras:
@@ -18,14 +20,14 @@ def filter_eras_by_name(era_name, eras = [], *args):
         return era
     abort(404)
 
-@app.route('/ancient_era/')
-def ancient_era_page():
-     civs = read_civs_from_json_file('ancient_era.json')
-     time_periods = get_unique_time_periods(civs) 
-     return render_template('ancient_era_page.html', time_periods = time_periods)
+#@app.route('/ancient_era/')
+#def ancient_era_page():
+#     civs = read_civs_from_json_file('ancient_era.json')
+#     time_periods = get_unique_time_periods(civs) 
+#     return render_template('ancient_era_page.html', time_periods = time_periods)
 
-@app.route('/ancient_era/<string:time_period>')
-def ancient_era_time_period_regions_page(time_period):
+@app.route('/<string:era_name>/<string:time_period>')
+def era_region_index_page(time_period):
     civs = read_civs_from_json_file('ancient_era.json')
     regions = get_unique_regions(civs)
     return render_template('ancient_era_regions_page.html', time_period = time_period,  regions = regions)
@@ -68,11 +70,11 @@ def get_unique_regions(civs = [], *args):
     regions.add(civ.region)
   return regions
 
-#Def read_eras_from_json_file(filename):
- #   with open(('static/' + filename, 'r') as f:
-  #    json_data = json.load(f)
-   # eras = [Era(era['name'], era['time_periods'], era['info']) for era in json_data]
-    #return eras
+def read_eras_from_json_file():
+    with open(('static/eras.json'), 'r') as f:
+      json_data = json.load(f)
+    eras = [Era(era['name'], era['summary'], era['time_periods']) for era in json_data]
+    return eras
 
 def read_civs_from_json_file(filename):
     with open(('static/' + filename), 'r') as f:
