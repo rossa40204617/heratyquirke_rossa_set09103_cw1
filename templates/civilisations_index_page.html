@@ -5,11 +5,11 @@
 {% endblock %}
 
 {% block content %}
- <p> You are exploring civilisations in the {{region}} during the {{time_period}} </p>
+ <p> You are exploring civilisations in {{region}} during the {{time_period}} </p>
  <h3> Select a civilisation to learn its story:</h3>
  <ul>
    {% for civ in civs %}
-   <li><a href={{ url_for('civilisation_page', era_name=era_name, time_period=time_period, region=civ.region, civ_name=civ.name) }}>{{civ.name}}</a></li>
+   <li><a href={{ url_for('civilisation_page', era_name=era_name, time_period=time_period, region=civ.region, civ_name=civ.name)|lower }}>{{civ.name}}</a></li>
    {% endfor %}
  </ul>
 {% endblock %}

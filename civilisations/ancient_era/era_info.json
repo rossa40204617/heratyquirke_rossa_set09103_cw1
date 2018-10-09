@@ -1,0 +1,8 @@
+{
+    "name": "Ancient_Era",
+    "summary": "The Ancient Era covers the Bronze Age and the Iron Age.",
+    "time_periods": [
+        "Bronze_Age",
+        "Iron_Age"
+    ]
+}

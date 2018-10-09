@@ -1,7 +1,8 @@
-from flask import Flask, render_template, json, jsonify
+from flask import Flask, render_template
 from civilisation import Civilisation
 from era import Era
 import os
+import json_reader
 app = Flask(__name__)
 
 @app.route('/home/')
@@ -11,7 +12,7 @@ def home_page():
 
 @app.route('/<string:era_name>/')
 def time_period_index_page(era_name):
-    eras = read_eras_from_json_file() 
+    eras = json_reader.read_eras_from_json_file() 
     era = filter_eras_by_name(era_name, eras) 
     return render_template('time_period_index_page.html', era=era)
 
@@ -23,20 +24,20 @@ def filter_eras_by_name(era_name, eras = [], *args):
 
 @app.route('/<string:era_name>/<string:time_period>')
 def region_index_page(era_name, time_period):
-    civs = read_civs_from_json_file(era_name.lower() + '.json')
-    regions = get_unique_regions(civs)
+    civs = json_reader.read_civs_from_json_file(era_name, time_period)
+    regions = get_unique_regions_from_civs(civs)
     return render_template('region_index_page.html', era_name = era_name, time_period = time_period, regions = regions)
 
 @app.route('/<string:era_name>/<string:time_period>/<string:region>/')
 def civilisations_index_page(era_name, time_period, region):
-    civs = read_civs_from_json_file(era_name.lower() + '.json')
-    filtered_civs = filter_civs_by_time_and_region(time_period, region , civs)
+    civs = json_reader.read_civs_from_json_file(era_name, time_period)
+    filtered_civs = filter_civs_by_region(region , civs)
     return render_template('civilisations_index_page.html', era_name=era_name, time_period = time_period, 
                            region = region, civs = filtered_civs)
 
 @app.route('/<string:era_name>/<string:time_period>/<string:region>/<string:civ_name>/')
 def civilisation_page(era_name, time_period, region, civ_name):
-    civs = read_civs_from_json_file(era_name.lower() + '.json')
+    civs = json_reader.read_civs_from_json_file(era_name, time_period)
     civ = get_civ_by_name(civ_name, civs)
     return render_template('civilisation_page.html', era_name = era_name, 
                            time_period = time_period, region = region, civ = civ)
@@ -47,36 +48,18 @@ def get_civ_by_name(civ_name, civs = [], *args):
         return civ
     abort(404)
 
-def filter_civs_by_time_and_region(time_period, region, civs = [], *args):
+def filter_civs_by_region(region, civs = [], *args):
     filtered_civs = []
     for civ in civs:
-      if civ.time_period.lower() == time_period.lower() and civ.region.lower() == region.lower(): 
+      if civ.region.lower() == region.lower(): 
         filtered_civs.append(civ)
-    return filtered_civs
+    return filtered_civs   
 
-def get_unique_time_periods(civs = [], *args):
-  time_periods = set()
-  for civ in civs:
-    time_periods.add(civ.time_period)
-  return time_periods   
-
-def get_unique_regions(civs = [], *args):
+def get_unique_regions_from_civs(civs = [], *args):
   regions = set()
   for civ in civs:
     regions.add(civ.region)
   return regions
-
-def read_eras_from_json_file():
-    with open(('static/eras.json'), 'r') as f:
-      json_data = json.load(f)
-    eras = [Era(era['name'], era['summary'], era['time_periods']) for era in json_data]
-    return eras
-
-def read_civs_from_json_file(filename):
-    with open(('static/' + filename), 'r') as f:
-      json_data = json.load(f)
-    civs = [Civilisation(civ['name'], civ['region'], civ['time_period']) for civ in json_data]
-    return civs
 
 if __name__ == ("__main__"):
     app.run(host='0.0.0.0', debug=True)
