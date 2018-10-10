@@ -4,12 +4,14 @@
   <h2>{% block title %}Explore the {{era.name}}{% endblock %}</h2>
 {% endblock %}
 
-{% block content %}
- <h3> {{era.summary}}  </h3>
- <ul>
-   {% for period in era.time_periods %}
-   <li><a href={{ url_for('region_index_page', era_name=era.name, time_period=period)|lower }} >{{period}}</a> </li>
-   {% endfor %}
- </ul>
+{% block content %} 
+ <h3>{{era.summary}}</h3>
+ <div class="row">
+ {% for period in era.time_periods %}
+ <div class="col-md-4">    
+   <h4> <a href={{ url_for('region_index_page', era_name=era.name, time_period=period)|lower}}> {{period}} </a> </h4> 
+ </div>
+{% endfor %}
+</div>
 {% endblock %}
 
