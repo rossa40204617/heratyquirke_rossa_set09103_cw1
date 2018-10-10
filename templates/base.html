@@ -1,19 +1,34 @@
 <html>
-<title>
-   {% block title %} {% endblock %}
-</title>
-<nav>
-	<a href={{ url_for('home_page') }}> Home </a>
-        <h1> Explore civilisations and nations through history </h1>
-	<li><a href={{ url_for('time_period_index_page', era_name="ancient_era") }}>Explore the Ancient Era</a>
-        <li><a href={{ url_for('time_period_index_page', era_name="medieval_era") }}>Explore the Medieval Era</a>
-        <li><a href={{ url_for('time_period_index_page', era_name="modern_era") }}>Explore the Modern Era</a> 
-</nav>
-<body>
-  <header>
-    {% block header %}{% endblock %}
-  </header>
-  
-  {% block content %} {% endblock %}
-</body>
+	<head>
+		<title> Reeling in the years </title>
+		<link href ="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" />
+        <style>
+          body{ padding-top: 50px; 
+          }
+        </style> 
+        </head>
+	<body>
+		<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header ">
+			          <a class ="navbar-brand" href="{{ url_for('home_page') }}">Reeling in the years</a>
+                                </div>
+				<div id="navbar" class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+					<li class="active"><a href ="{{ url_for('home_page') }}">Home</a></li>
+					<li><a href={{ url_for('time_period_index_page', era_name="ancient_era") }}>Ancient Era</a>                                                    
+					<li><a href={{ url_for('time_period_index_page', era_name="medieval_era") }}>Medieval Era</a>
+					<li><a href={{ url_for('time_period_index_page', era_name="modern_era") }}>Modern Era</a>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<div class ="container">
+	           <header> 
+                     {% block header %}{% endblock %}
+                   </header>
+                {% block content %}{% endblock %} 
+		</div>
+	</body>
 </html>
+
