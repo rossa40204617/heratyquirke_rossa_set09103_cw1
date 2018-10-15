@@ -1,35 +1,55 @@
 <html>
-	<head>
-		<title> Reeling in the years </title>
-		<link href ="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" />
-        <style>
-          body{ padding-top: 50px; 
-          }
-        </style> 
-        </head>
-	<body>
-		<nav class="navbar navbar-default navbar-fixed-top">
-			<div class="container">
-				<div class="navbar-header ">
-			          <img src="{{ url_for('static', filename='img/logo.png') }}">
-                                  <a class ="navbar-brand" href="{{ url_for('home_page') }}">Reeling in the years</a>
-                                </div>
-				<div id="navbar" class="collapse navbar-collapse">
-					<ul class="nav navbar-nav">
-					<li class="active"><a href ="{{ url_for('home_page') }}">Home</a></li>
-					<li><a href={{ url_for('time_period_index_page', era_name="ancient_era") }}>Ancient Era</a>                                                    
-					<li><a href={{ url_for('time_period_index_page', era_name="medieval_era") }}>Medieval Era</a>
-					<li><a href={{ url_for('time_period_index_page', era_name="modern_era") }}>Modern Era</a>
-					</ul>
-				</div>
-			</div>
-		</nav>
-		<div class ="container">
-	           <header> 
-                     {% block header %}{% endblock %}
-                   </header>
-                {% block content %}{% endblock %} 
-		</div>
-	</body>
+  <head>
+    <title> Reeling in the years </title>
+      <link href ="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" />
+    <style>
+      body{ padding-top: 50px; 
+        }
+    </style> 
+  </head>
+  <body>
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header ">
+        <img src="{{ url_for('static', filename='img/logo.png') }}">
+          <a class ="navbar-brand" href="{{ url_for('home_page') }}">Reeling in the years</a>
+      </div>
+      <div id="navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+	  <li class="active"><a href ="{{ url_for('home_page') }}">Home</a></li>
+	  <li><a href={{ url_for('time_period_index_page', era_name="ancient_era") }}>Ancient Era</a>                                                    
+	  <li><a href={{ url_for('time_period_index_page', era_name="medieval_era") }}>Medieval Era</a>
+	  <li><a href={{ url_for('time_period_index_page', era_name="modern_era") }}>Modern Era</a>
+          <li><a href={{ url_for('add_civ') }}>Add Civilisation</a>	  
+          <li>
+            {% if session['admin'] %} 
+              {% set link = 'admin_logout' %}
+              {% set text = 'Log out' %}
+            {% else %}
+              {% set link = 'admin_login' %}
+              {% set text = 'Login' %} 
+            {% endif %}
+            <a href={{ url_for(link) }}>{{text}}</a> 
+          </li>
+          </ul>
+        
+      </div>
+    </div>
+  </nav>
+  <div class ="container">
+    <header> 
+      {% block header %}{% endblock %}
+    </header>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %} 
+        {% for message in messages %}
+          <p>{{ message | safe }}</p>
+        {% endfor %}
+      {% endif %}
+    {% endwith %} 
+
+    {% block content %}{% endblock %}    
+    </div>
+  </body>
 </html>
 

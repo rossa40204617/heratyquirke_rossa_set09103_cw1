@@ -1,10 +1,12 @@
-from flask import Flask, request, render_template
+from flask import Flask, url_for, redirect, flash, abort, session, request, render_template
 from civilisation import Civilisation
 from era import Era
 import os
 import json
 import json_reader
+
 app = Flask(__name__)
+app.secret_key = 'this is a secret!!!'
 
 @app.route('/home/')
 @app.route('/')
@@ -13,32 +15,54 @@ def home_page():
 
 @app.route('/admin_login/', methods=['POST', 'GET'])
 def admin_login():
-    return render_template('admin_login_page.html')
-
-@app.route('/add_civ/', methods=['POST', 'GET'])
-def add_civ():
-    if request.method == 'POST':
-      print request.form
-      name = request.form['name']
-      region = request.form['region']
-      time_period = request.form['time_period']
-      era = request.form['era']
-      
-      new_civ = {'name': name,'region': region}
-      
-      filename = ('civilisations' + '/' + era + '/' + time_period + '/' + 'civilisations.json').lower()
-      with open(filename) as f:
-        civs = json.load(f)
-      
-      civs.append(new_civ) 
-      
-      with open(filename, 'w') as f:
-        json.dump(civs, f)
-
-      
-      return render_template('add_new_civ_page.html')
+    if request.method == 'POST':  
+      if request.form['username'] == 'admin' and request.form['password'] == 'root':
+        session['admin'] = True
+      return render_template('admin_login_page.html')
     else:
-      return render_template('add_new_civ_page.html')
+      return render_template('admin_login_page.html')
+
+@app.route('/admin_logout/', methods=['POST', 'GET'])
+def admin_logout():
+  session['admin'] = False
+  flash("You have been logged out")
+  return redirect(url_for('admin_login'))
+
+@app.route('/add_civilisation/', methods=['POST', 'GET'])
+def add_civ():
+  if session['admin']:
+    if request.method == 'POST':
+      add_new_civilisation(request.form)      
+    return render_template('add_new_civ_page.html') 
+  else:
+    flash("You need to be logged in as Admin to access that page")
+    return redirect(url_for('admin_login'))
+
+def add_new_civilisation(request):
+   name = request['name']
+   region = request['region']
+   time_period = request['time_period']
+   era = request['era']
+      
+   new_civ = {'name': name,'region': region}
+     
+   filename = ('civilisations' + '/' + era + '/' + time_period + '/' + 'civilisations.json').lower()
+   with open(filename) as f:
+     civs = json.load(f)
+
+   if check_if_civ_already_exists_in_file(name, civs):
+     flash("An entry for the civilisation '" + name + "' already exists")   
+   else: 
+     civs.append(new_civ)      
+     with open(filename, 'w') as f:
+       json.dump(civs, f)
+     flash(name + " has been added as a new civilisation")
+       
+def check_if_civ_already_exists_in_file(name, civs = [], *args):
+  for civ in civs:
+    if name.lower() == civ['name'].lower():
+      return True
+  return False
 
 @app.route('/<string:era_name>/')
 def time_period_index_page(era_name):

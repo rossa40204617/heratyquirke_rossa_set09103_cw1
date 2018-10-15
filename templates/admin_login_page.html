@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block header %}
+  <h2>{% block title %}Admin Login{% endblock %}</h2>
+{% endblock %}
+
+{% block content %}
+{% if session['admin'] %}
+<p> You are logged in! </p>
+<form action="/admin_logout/" method="POST">
+<input type="submit" value ="Log out">
+</form>
+{% else %}
+<form action="/admin_login/" method="POST">
+  <input type="username" name="username" placeholder="Username">
+  <input type="password" name="password" placeholder="Password">
+  <input type="submit" value="Log in">
+</form>
+{% endif %}
+{% endblock %}
