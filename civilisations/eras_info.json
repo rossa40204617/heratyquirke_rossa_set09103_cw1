@@ -5,7 +5,8 @@
         "time_periods": [
             "Bronze_Age",
             "Iron_Age"
-        ]
+        ],
+        "image": "img/ancient_era.png"  
     },
     {
         "name": "Medieval_Era",
@@ -14,7 +15,8 @@
             "Early_Medieval_Period",
             "High_Medieval_Period",
             "Late_Medieval_Period"
-        ]
+        ],
+        "image": "img/medieval_era.png"        
     },
         {
         "name": "Modern_Era",
@@ -23,6 +25,7 @@
             "Early_Modern_period",
             "Late_Modern_period",
             "Contemporary_period"
-        ]
+        ],
+        "image": "img/modern_era.png"
     }
 ]

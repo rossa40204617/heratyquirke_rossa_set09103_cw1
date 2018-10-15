@@ -11,7 +11,9 @@ app.secret_key = 'this is a secret!!!'
 @app.route('/home/')
 @app.route('/')
 def home_page():
-    return render_template('base.html')
+    eras = json_reader.read_eras_from_json_file()
+    
+    return render_template('era_index_page.html', eras=eras )
 
 @app.route('/admin_login/', methods=['POST', 'GET'])
 def admin_login():
@@ -95,6 +97,9 @@ def civilisation_page(era_name, time_period, region, civ_name):
     civ = get_civ_by_name(civ_name, civs)
     return render_template('civilisation_page.html', era_name = era_name, 
                            time_period = time_period, region = region, civ = civ)
+@app.errorhandler(404)
+def page_not_found(error):
+  return render_template('404_error_page.html'), 404
 
 def get_civ_by_name(civ_name, civs = [], *args):
     for civ in civs:

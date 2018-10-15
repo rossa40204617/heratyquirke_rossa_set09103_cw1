@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h2> Explore civilisations by the eras of history! </h2>
+{% endblock %} 
+
+{% block content %}
+<div class="well text-center">
+  {% for era in eras %}
+  <div class="col-md-6">
+    <a href="#"><img src="{{ url_for('static', filename=era.image) }}" /></a> 
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
+
