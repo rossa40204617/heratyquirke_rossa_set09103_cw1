@@ -1,16 +1,32 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h2> Explore civilisations by the eras of history! </h2>
+<div class="container">
+  <div align="center">
+    <h2> Explore civilisations by the eras of history! </h2>
+  </div>
+</div>
 {% endblock %} 
 
 {% block content %}
-<div class="well text-center">
-  {% for era in eras %}
-  <div class="col-md-6">
-    <a href="#"><img src="{{ url_for('static', filename=era.image) }}" /></a> 
+<div class="container">
+<div class="row">
+  {% for era in eras %} 
+    <div class="col-md-4"> 
+      <a class="thumbnail fancybox" rel="lightbox" href="{{ url_for('time_period_index_page', era_name=era.name)|lower }}" >
+        <img src="{{ url_for('static', filename=era.image) }}" class="img-responsive" />
+        <div class="caption">
+          <div align="center">
+            <h4>{{era.summary}}</h4>
+          </div>
+        </div>
+      </a>
+    </div>
+  {% endfor %} 
+</div>
+  <div align="center">
+    <h3>Reeling in the years allows you to explore civilisations and states throughout history, categorised by time and geography! </h3>
+    <p> </p>
   </div>
-  {% endfor %}
 </div>
 {% endblock %}
-

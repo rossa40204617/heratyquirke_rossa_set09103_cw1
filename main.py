@@ -30,15 +30,61 @@ def admin_logout():
   flash("You have been logged out")
   return redirect(url_for('admin_login'))
 
+@app.route('/editor/')
+def editor_page():
+  try: 
+    if session['admin']:
+      return render_template('admin_editor_page.html')
+  except KeyError:
+    pass
+  flash("You need to be logged in as Admin to access that page")
+  return redirect(url_for('admin_login'))
+
 @app.route('/add_civilisation/', methods=['POST', 'GET'])
-def add_civ():
-  if session['admin']:
-    if request.method == 'POST':
-      add_new_civilisation(request.form)      
-    return render_template('add_new_civ_page.html') 
-  else:
-    flash("You need to be logged in as Admin to access that page")
-    return redirect(url_for('admin_login'))
+def add_civilisation():
+  try:
+    if session['admin']:
+      if request.method == 'POST':
+        add_new_civilisation(request.form)      
+      return render_template('add_new_civ_page.html') 
+  except KeyError:
+    pass
+  flash("You need to be logged in as Admin to access that page")
+  return redirect(url_for('admin_login')) 
+
+@app.route('/remove_civilisation/', methods=['POST', 'GET'])
+def remove_civilisation():
+  try:
+    if session['admin']:
+      if request.method == 'POST':
+        print(request.form)
+        print(remove_civilisation(request.form))
+        remove_civilisation(request.form)
+    return render_template('add_new_civ_page.html')
+  except KeyError:
+    pass
+  flash("You need to be logged in as Admin to access that page")
+  return redirect(url_for('admin_login'))
+
+def remove_civilisation(request):
+   
+   name = request['name']
+   region = request['region']
+   time_period = request['time_period']
+   era = request['era']
+    
+   new_civ = {'name': name, 'region': region}
+   
+   filename = ('civilisations' + '/' + era + '/' + time_period + '/' + 'civilisations.json').lower()
+   with open(filename) as f:
+     civs = json.load(f)
+   print("CIVS:" + civs)
+   civs.remove(new_civ)      
+   
+   with open(filename, 'w') as f:
+     json.dump(civs, f)
+   flash("The entry on: '" + name + "' has been removed.")
+   return(civs)
 
 def add_new_civilisation(request):
    name = request['name']
@@ -106,6 +152,10 @@ def get_civ_by_name(civ_name, civs = [], *args):
       if civ.name.lower() == civ_name.lower():
         return civ
     abort(404)
+
+@app.errorhandler(401)
+def unauthorised_error(error):
+  return render_template('404_error_page.html'), 401
 
 def filter_civs_by_region(region, civs = [], *args):
     filtered_civs = []

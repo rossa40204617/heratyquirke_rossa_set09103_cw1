@@ -1,31 +1,31 @@
 [
     {
         "name": "Ancient_Era",
-        "summary": "The Ancient Era covers the Bronze Age and the Iron Age.",
+        "summary": "In the Ancient Era humans begin to organise themselves into the first 'civilisations'.",
         "time_periods": [
             "Bronze_Age",
             "Iron_Age"
         ],
-        "image": "img/ancient_era.png"  
+        "image": "img/ancient_era.jpg"  
     },
     {
         "name": "Medieval_Era",
-        "summary": "Following the Ancient Era the Medieval Era includes an Early, High, and Late period.",
+        "summary": "During the Medieval Era advancement in technology and weapons drove the creation of the first nation states.",
         "time_periods": [
             "Early_Medieval_Period",
             "High_Medieval_Period",
             "Late_Medieval_Period"
         ],
-        "image": "img/medieval_era.png"        
+        "image": "img/medieval_era.jpg"        
     },
         {
         "name": "Modern_Era",
-        "summary": "The Modern Era follows the Medieval Era and covers an Early Modern, Late Modern and Comtemporary period(a.k.a the world today!).",
+        "summary": "The Modern Era runs up til today and sees extreme change in how civilisations are organised.",
         "time_periods": [
             "Early_Modern_period",
             "Late_Modern_period",
             "Contemporary_period"
         ],
-        "image": "img/modern_era.png"
+        "image": "img/modern_era.jpg"
     }
 ]

@@ -1,17 +1,25 @@
 {% extends 'base.html' %}
 
 {% block header %}
+<div class="container">
+  <div align="center">
   <h2>{% block title %}Explore the {{era.name}}{% endblock %}</h2>
+  </div>
+</div>
 {% endblock %}
 
 {% block content %} 
- <h3>{{era.summary}}</h3>
+<div class="container">
+  <div align="center">   
+    <h3>{{era.summary}}</h3>
  <div class="row">
  {% for period in era.time_periods %}
  <div class="col-md-4">    
-   <h4> <a href={{ url_for('region_index_page', era_name=era.name, time_period=period)|lower}}> {{period}} </a> </h4> 
+   <h4> <a href={{ url_for('region_index_page', era_name=era.name, time_period=period)|lower}}>{{period}}</a> </h4> 
  </div>
 {% endfor %}
+</div>
+</div>
 </div>
 {% endblock %}
 

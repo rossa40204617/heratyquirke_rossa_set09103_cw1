@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title> Reeling in the years </title>
+    <title>{% block title %}  Reeling in the years {% endblock %} </title>
       <link href ="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" />
     <style>
       body{ padding-top: 50px; 
@@ -20,7 +20,7 @@
 	  <li><a href={{ url_for('time_period_index_page', era_name="ancient_era") }}>Ancient Era</a>                                                    
 	  <li><a href={{ url_for('time_period_index_page', era_name="medieval_era") }}>Medieval Era</a>
 	  <li><a href={{ url_for('time_period_index_page', era_name="modern_era") }}>Modern Era</a>
-          <li><a href={{ url_for('add_civ') }}>Add Civilisation</a>	  
+          <li><a href={{ url_for('editor_page') }}>Editor</a>	  
           <li>
             {% if session['admin'] %} 
               {% set link = 'admin_logout' %}
@@ -43,7 +43,7 @@
     {% with messages = get_flashed_messages() %}
       {% if messages %} 
         {% for message in messages %}
-          <p>{{ message | safe }}</p>
+          <b>{{ message | safe }}</b>
         {% endfor %}
       {% endif %}
     {% endwith %} 

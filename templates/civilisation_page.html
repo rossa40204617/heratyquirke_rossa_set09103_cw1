@@ -1,12 +1,20 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h2>{% block title %}{{civ.name}}{% endblock %}</h2>
+<div class="container">
+  <div align="center">
+    <h2>{% block title %}{{civ.name}}{% endblock %}</h2>
+  </div>
+</div>
 {% endblock %}
 
 {% block content %}
+<div class="container">
+  <div align="center">
   <p> Region: <a href = {{ url_for('civilisations_index_page', era_name=era_name, time_period=time_period, region=civ.region)|lower }}>{{civ.region}}</a></p>
   <p> Time period: <a href = {{ url_for('region_index_page', era_name=era_name, time_period=time_period)|lower }}>{{time_period}}</a></p>
   <p> Summary here! </p>
+  </div>
+</div>
 {% endblock %}
 
