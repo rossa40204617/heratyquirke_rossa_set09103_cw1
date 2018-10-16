@@ -45,7 +45,9 @@ def add_civilisation():
   try:
     if session['admin']:
       if request.method == 'POST':
-        add_new_civilisation(request.form)      
+
+        image = request.files['image']
+        add_new_civilisation(request.form, image)      
       return render_template('add_new_civilisation_page.html') 
   except KeyError:
     pass
@@ -57,8 +59,6 @@ def remove_civilisation():
   try:
     if session['admin']:
       if request.method == 'POST':
-        print(request.form)
-        print(remove_civilisation(request.form))
         remove_civilisation(request.form)
     return render_template('remove_civilisation_page.html')
   except KeyError:
@@ -87,13 +87,15 @@ def remove_civilisation(request):
    flash("The entry on: '" + name + "' has been removed.")
    return(civs)
 
-def add_new_civilisation(request):
+def add_new_civilisation(request, image):
+   
    name = convert_url_to_field(request['name'])
    region = convert_url_to_field(request['region'])
    time_period = convert_url_to_field(request['time_period'])
    era = convert_url_to_field(request['era'])
-      
-   new_civ = {'name': name,'region': region}
+   info = request['info']
+   
+   new_civ = {'name': name,'region': region, 'image': image.filename, 'info': info}
    
    filepath = construct_civilisation_filepath(era, time_period)
   
@@ -103,7 +105,8 @@ def add_new_civilisation(request):
    if check_if_civ_already_exists_in_file(name, civs):
      flash("An entry for the civilisation '" + name + "' already exists")   
    else: 
-     civs.append(new_civ)      
+     civs.append(new_civ)     
+     image.save('static/img/' + image.filename) 
      with open(filepath, 'w') as f:
        json.dump(civs, f)
      flash(name + " has been added as a new civilisation")
