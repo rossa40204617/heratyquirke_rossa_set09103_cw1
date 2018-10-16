@@ -1,30 +1,30 @@
 [
     {
-        "name": "Ancient_Era",
+        "name": "Ancient Era",
         "summary": "In the Ancient Era humans begin to organise themselves into the first 'civilisations'.",
         "time_periods": [
-            "Bronze_Age",
-            "Iron_Age"
+            "Bronze Age",
+            "Iron Age"
         ],
         "image": "img/ancient_era.jpg"  
     },
     {
-        "name": "Medieval_Era",
+        "name": "Medieval Era",
         "summary": "During the Medieval Era advancement in technology and weapons drove the creation of the first nation states.",
         "time_periods": [
-            "Early_Medieval_Period",
-            "High_Medieval_Period",
-            "Late_Medieval_Period"
+            "Early Medieval Period",
+            "High Medieval Period",
+            "Late Medieval Period"
         ],
         "image": "img/medieval_era.jpg"        
     },
         {
-        "name": "Modern_Era",
+        "name": "Modern Era",
         "summary": "The Modern Era runs up til today and sees extreme change in how civilisations are organised.",
         "time_periods": [
-            "Early_Modern_period",
-            "Late_Modern_period",
-            "Contemporary_period"
+            "Early Modern period",
+            "Late Modern period",
+            "Contemporary period"
         ],
         "image": "img/modern_era.jpg"
     }

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h2 class="text-center">{% block title %}Remove a Civilisation{% endblock %}</h2>
+{% endblock %}
+
+{% block content %}
+<form class="form-horizontal" action="/editor/remove_civilisation/" method="post">
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="name">Name:</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="name" name="name" required />
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="region">Region:</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="region" name="region" required />
+    </div>
+  </div>
+   <div class="form-group">
+    <label class="control-label col-sm-2" for="era">Era:</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="era" name="era" required />
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="time_period">Time Period:</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="time_period" name="time_period" required />
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-danger">Remove</button>
+    </div>
+  </div>
+</form>
+{% endblock %}

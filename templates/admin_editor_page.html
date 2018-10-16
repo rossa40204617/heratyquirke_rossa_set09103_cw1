@@ -13,7 +13,8 @@
   <div align="center">
     <h4> This is the editor page, from here you can access the tools to add or remove entries on civilisations. </h4>
     <a href="{{ url_for('add_civilisation') }}" class="btn btn-success" role="button">Add Civilisation</a>
-    <a href="{{ url_for('remove_civilisation') }}" class="btn btn-danger" role="button">Remove Civilisation</a>
+    <a href="{{ url_for('remove_civilisation') }}" class="btn btn-danger" role="button">Remove Civilisation</a><br/>
+     <br/><img src="{{ url_for('static', filename="img/editor_image.jpg") }}" alt="spiderman meme">
   </div>
 </div>
 {% endblock %}

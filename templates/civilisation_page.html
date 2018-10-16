@@ -11,8 +11,8 @@
 {% block content %}
 <div class="container">
   <div align="center">
-  <p> Region: <a href = {{ url_for('civilisations_index_page', era_name=era_name, time_period=time_period, region=civ.region)|lower }}>{{civ.region}}</a></p>
-  <p> Time period: <a href = {{ url_for('region_index_page', era_name=era_name, time_period=time_period)|lower }}>{{time_period}}</a></p>
+  <p> Region: <a href = {{ url_for('civilisations_index_page', era_name=format_string(era_name), time_period=format_string(time_period), region=format_string(civ.region)) }}>{{civ.region}}</a></p>
+  <p> Time period: <a href = {{ url_for('region_index_page', era_name=format_string(era_name), time_period=format_string(time_period)) }}>{{time_period}}</a></p>
   <p> Summary here! </p>
   </div>
 </div>

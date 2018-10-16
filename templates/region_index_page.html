@@ -9,7 +9,7 @@
  <h3> Explore by region:</h3>
  <ul>
    {% for region in regions %}
-   <li><a href={{ url_for('civilisations_index_page', era_name=era_name, time_period=time_period, region=region)|lower }} >{{region}}</a></li>
+   <li><a href={{ url_for('civilisations_index_page', era_name=format_string(era_name), time_period=format_string(time_period), region=format_string(region)) }} >{{region}}</a></li>
    {% endfor %}
  </ul>
 {% endblock %}
