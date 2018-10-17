@@ -14,7 +14,7 @@
   {% for era in eras %} 
     <div class="col-md-4"> 
       <a class="thumbnail fancybox" rel="lightbox" href="{{ url_for('time_period_index_page', era_name=format_string(era.name)) }}" >
-        <img src="{{ url_for('static', filename=era.image) }}" class="img-responsive" />
+        <img src="{{ url_for('static', filename=era.image) }}" class="img" />
         <div class="caption">
           <div align="center">
             <h4>{{era.summary}}</h4>
