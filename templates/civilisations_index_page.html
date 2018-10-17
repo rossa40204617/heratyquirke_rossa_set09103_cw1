@@ -5,43 +5,10 @@
 {% endblock %}
 
 {% block content %} 
-{% set max = civs|length %}
-
-<div id="civilisation_carousel" class="carousel slide" data-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      {% set random_number = range(1, max)|random %}   
-      <img class="d-block w-100" src="{{ url_for('static', filname='img/' + civs[random_number].image) }}" alt="random_civ_1">
-      <div class="carousel-caption d-none d-md-block">
-        <h5> {{civs[random_number].name}} </h5>
-    </div>
-    <div class="carousel-item">
-      {% set random_number = range(1, max)|random %}
-      <img class="d-block w-100" src="{{ url_for('static', filname='img/' + civs[random_number].image) }}" alt="random_civ_2">
-      <div class="carousel-caption d-none d-md-block">
-        <h5> {{civs[random_number].name}} </h5>
-      </div>
-    </div>
-    <div class="carousel-item">
-      {% set random_number = range(1, max)|random %}
-      <img class="d-block w-100" src="{{ url_for('static', filname='img/' + civs[random_number].image) }}" alt="random_civ_3">
-      <div class="carousel-caption d-none d-md-block">
-        <h5> {{civs[random_number].name}} </h5>
-      </div>
-    </div>
-  </div>
-  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
-</div>
 <p> You are exploring civilisations in {{region}} during the {{time_period}} </p>
 <h3> Select a civilisation to learn its story:</h3>
 <ul>
+
  {% for civ in civs %}
    <li><a href={{ url_for('civilisation_page', era_name=format_string(era_name), time_period=format_string(time_period), region=format_string(civ.region), civ_name=format_string(civ.name)) }}>{{civ.name}}</a></li>
  {% endfor %}

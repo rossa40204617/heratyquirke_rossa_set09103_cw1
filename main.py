@@ -8,6 +8,10 @@ import json_reader
 app = Flask(__name__)
 app.secret_key = 'this is a secret!!!'
 
+@app.route('/test/')
+def test():
+  return render_template('test.html')
+
 @app.route('/home/')
 @app.route('/')
 def home_page():
