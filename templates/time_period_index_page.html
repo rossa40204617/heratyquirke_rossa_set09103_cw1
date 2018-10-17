@@ -16,7 +16,7 @@
  {% for period in era.time_periods %}
  <div class="col-md-4">    
    <a class="thumbnail fancybox" rel="lightbox" href={{ url_for('region_index_page', era_name=format_string(era.name), time_period=format_string(period)) }} >
-     <img src="{{ url_for('static', filename='img/' + format_string(period) + '.jpg') }}" class="img-responsive" />
+     <img src="{{ url_for('static', filename='img/' + format_string(period) + '.jpg') }}" height="350" class="img-responsive" />
      <div class="caption">
        <h4>{{period}}</h4>
      </div>
