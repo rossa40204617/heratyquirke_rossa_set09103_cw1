@@ -5,12 +5,74 @@
 {% endblock %}
 
 {% block content %}
+
+<style>
+.europe {
+    position: absolute;
+    top: 40%;
+    right: 42%;
+}
+.asia {
+    position: absolute;
+    top: 45%;
+    right: 28%;
+}
+.north_america {
+    position: absolute;
+    top: 47%;
+    left: 20%;
+}
+
+.south_america {
+    position: absolute;
+    top: 75%;
+    left: 28%;
+}
+.africa {
+    position: absolute;
+    top: 60%;
+    right: 45%;
+}
+.australia {
+    position: absolute;
+    bottom: 7%;
+    right: 14.5%;
+}
+
+</style>
  <p> Choose a region to explore the civilisations living there during the {{time_period}}!</p>
- <h3> Explore by region:</h3>
- <ul>
-   {% for region in regions %}
-   <li><a href={{ url_for('civilisations_index_page', era_name=format_string(era_name), time_period=format_string(time_period), region=format_string(region)) }} >{{region}}</a></li>
-   {% endfor %}
- </ul>
+   <div class="container">   
+   <img src="{{ url_for('static', filename='img/world_map.png') }}" width=1150 class="img-responsive" >
+     {% if ('Europe' in regions) %}
+     <div class="europe">
+        <a href={{ url_for('civilisations_index_page', era_name=format_string(era_name), time_period=format_string(time_period), region="europe") }} class="btn btn-lg" style="color:yellow" role="button">Europe</a> 
+     </div>
+     {% endif %}
+     {% if ('Asia' in regions) %}
+     <div class="asia">
+       <a href={{ url_for('civilisations_index_page', era_name=format_string(era_name), time_period=format_string(time_period), region="asia") }} class="btn btn-lg" style="color:blue" role="button" >Asia</a>
+     </div>
+     {% endif %}
+     {% if ('Africa' in regions) %}
+     <div class="africa">
+       <a href={{ url_for('civilisations_index_page', era_name=format_string(era_name), time_period=format_string(time_period), region="africa") }} class="btn btn-lg" style="color:white" role="button">Africa</a>
+     </div>
+     {% endif %}
+     {% if ('North America' in regions) %}
+     <div class="north_america">
+       <a href={{ url_for('civilisations_index_page', era_name=format_string(era_name), time_period=format_string(time_period), region="north_america") }} class="btn btn-lg" style="color:purple" role="button">North America</a>
+     </div>
+     {% endif %}
+     {% if ('South America' in regions) %}
+     <div class="south_america">
+       <a href={{ url_for('civilisations_index_page', era_name=format_string(era_name), time_period=format_string(time_period), region="south_america") }} class="btn btn-lg" style="color:red" role="button">South America</a>
+     </div>
+     {% endif %}
+     {% if ('Australia' in regions) %}
+     <div class="australia">
+       <a href={{ url_for('civilisations_index_page', era_name=format_string(era_name), time_period=format_string(time_period), region="australia") }} class="btn btn-lg" style="color:orange" role="button">Australia</a>
+     </div>
+     {% endif %}
+   </div>
 {% endblock %}
 
