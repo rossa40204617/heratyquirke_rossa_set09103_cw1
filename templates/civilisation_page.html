@@ -1,20 +1,22 @@
 {% extends 'base.html' %}
 
+
+{% block title %} 
+{{civ.name}}
+{% endblock %}
+
 {% block header %}
-<div class="container">
-  <div align="center">
-    <h2>{% block title %}{{civ.name}}{% endblock %}</h2>
-  </div>
+<div class="container" align="center">
+  <h2><u>{{civ.name}}</u></h2>
 </div>
 {% endblock %}
 
 {% block content %}
-<div class="container">
-  <div align="center">
-  <p> Region: <a href = {{ url_for('civilisations_index_page', era_name=format_string(era_name), time_period=format_string(time_period), region=format_string(civ.region)) }}>{{civ.region}}</a></p>
-  <p> Time period: <a href = {{ url_for('region_index_page', era_name=format_string(era_name), time_period=format_string(time_period)) }}>{{time_period}}</a></p>
-  <p> Summary here! </p>
-  </div>
+<div class="container" align="center">
+  <img src="{{ url_for('static', filename='img/' + format_string(civ.image)) }}" style="width:40%" alt="civ_image" class="img-rounded"/>
+  <h4><b> Region: <a href = {{ url_for('civilisations_index_page', era_name=format_string(era_name), time_period=format_string(time_period), region=format_string(civ.region)) }}>{{civ.region}}</a> </b></h4>
+  <h4><b> Time period: <a href = {{ url_for('region_index_page', era_name=format_string(era_name), time_period=format_string(time_period)) }}>{{time_period}}</a> </b></h4>
+  <h4> {{civ.info}} </h4>
 </div>
 {% endblock %}
 

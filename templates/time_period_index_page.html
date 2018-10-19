@@ -1,30 +1,26 @@
 {% extends 'base.html' %}
 
 {% block header %}
-<div class="container">
-  <div align="center">
+<div class="container" align="center">
   <h2>{% block title %}Explore the {{era.name}}{% endblock %}</h2>
-  </div>
 </div>
 {% endblock %}
 
 {% block content %} 
-<div class="container">  
-<div align="center">
- <h3>{{era.summary}}</h3>
- <div class="row">
- {% for period in era.time_periods %}
- <div class="col-md-4">    
-   <a class="thumbnail fancybox" rel="lightbox" href="{{ url_for('region_index_page', era_name=format_string(era.name), time_period=format_string(period)) }}" >
-     <img src="{{ url_for('static', filename='img/' + format_string(period) + '.jpg') }}" style="height:33%" class="img-responsive" />
-     <div class="caption">
-       <h4>{{period}}</h4>
-     </div>
-  </a> 
- </div>
-{% endfor %}
-</div>
-</div>
+<div class="container" align="center">
+  <h3>{{era.summary}}</h3>
+  <div class="row">
+  {% for period in era.time_periods %}
+    <div class="col-md-4">    
+      <a class="thumbnail fancybox" rel="lightbox" href="{{ url_for('region_index_page', era_name=format_string(era.name), time_period=format_string(period)) }}" >
+        <img src="{{ url_for('static', filename='img/' + format_string(period) + '.jpg') }}" style="height:33%" class="img-responsive" />
+        <div class="caption">
+          <h4>{{period}}</h4>
+        </div>
+      </a> 
+    </div>
+  {% endfor %}
+  </div>
 </div>
 {% endblock %}
 
