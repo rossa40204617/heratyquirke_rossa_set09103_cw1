@@ -29,9 +29,15 @@ def add_new_civilisation(request, image):
    region = convert_url_to_field(request['region'])
    time_period = convert_url_to_field(request['time_period'])
    era = convert_url_to_field(request['era'])
+   established = convert_url_to_field(request['established'])
+   end_date = convert_url_to_field(request['end_date'])
+   gov_type = convert_url_to_field(request['gov_type'])
+   religion = convert_url_to_field(request['religion'])
+   fun_fact = convert_url_to_field(request['fun_fact'])
    info = request['info']
 
-   new_civ = {'name': name,'region': region, 'image': image.filename, 'info': info}
+   new_civ = {'name': name,'region': region, 'image': image.filename, 'info': info, 'established': established,
+              'end_date': end_date, 'gov_type': gov_type, 'religion': religion, 'fun_fact': fun_fact }
 
    filepath = construct_civilisation_filepath(era, time_period)
 
@@ -88,4 +94,6 @@ def check_if_civ_already_exists_in_file(name, civs = [], *args):
       return True
   return False
 
-
+def format_for_url_from_string(string):
+  result = string.replace(" ", "_").lower()
+  return result

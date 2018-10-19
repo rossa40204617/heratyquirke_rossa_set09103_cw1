@@ -16,7 +16,11 @@
   <img src="{{ url_for('static', filename='img/' + format_string(civ.image)) }}" style="width:40%" alt="civ_image" class="img-rounded"/>
   <h4><b> Region: <a href = {{ url_for('civilisations_index_page', era_name=format_string(era_name), time_period=format_string(time_period), region=format_string(civ.region)) }}>{{civ.region}}</a> </b></h4>
   <h4><b> Time period: <a href = {{ url_for('region_index_page', era_name=format_string(era_name), time_period=format_string(time_period)) }}>{{time_period}}</a> </b></h4>
-  <h4> {{civ.info}} </h4>
+  <h4><b>From </b> {{civ.established}} <b>to</b> {{civ.end_date}}</h4>
+  <h4><b> Govermnet type:</b> {{civ.gov_type}}</h4>
+  <h4><b> Religion:</b> {{civ.religion}}</h4>
+  <h4><b>Story:</b></h4>
+  <h4>{{civ.info}} </h4>
 </div>
 {% endblock %}
 
