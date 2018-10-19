@@ -4,6 +4,7 @@ from era import Era
 import os
 import json
 import json_reader
+import civilisations_manager
 
 app = Flask(__name__)
 app.secret_key = 'this is a secret!!!'
@@ -24,6 +25,8 @@ def admin_login():
     if request.method == 'POST':  
       if request.form['username'] == 'admin' and request.form['password'] == 'root':
         session['admin'] = True
+      else:
+        flash("Invalid credentials")
       return render_template('admin_login_page.html')
     else:
       return render_template('admin_login_page.html')
@@ -51,7 +54,7 @@ def add_civilisation():
       if request.method == 'POST':
 
         image = request.files['image']
-        add_new_civilisation(request.form, image)      
+        civilisations_manager.add_new_civilisation(request.form, image)      
       return render_template('add_new_civilisation_page.html') 
   except KeyError:
     pass
@@ -63,7 +66,7 @@ def remove_civilisation():
   try:
     if session['admin']:
       if request.method == 'POST':
-        remove_civilisation(request.form)
+        civilisations_manager.remove_civilisation(request.form)
     return render_template('remove_civilisation_page.html')
   except KeyError:
     pass
@@ -131,8 +134,8 @@ def construct_civilisation_filepath(era, time_period):
 def time_period_index_page(era_name):
     eras = json_reader.read_eras_from_json_file()
 
-    era_name = convert_url_to_field(era_name) 
-    era = filter_eras_by_name(era_name, eras) 
+    era_name = civilisations_manager.convert_url_to_field(era_name) 
+    era = civilisations_manager.filter_eras_by_name(era_name, eras) 
 
     return render_template('time_period_index_page.html', era=era)
 
@@ -150,9 +153,9 @@ def filter_eras_by_name(era_name, eras = [], *args):
 def region_index_page(era_name, time_period):
     civs = json_reader.read_civs_from_json_file(era_name, time_period)
 
-    era_name = convert_url_to_field(era_name)
-    time_period = convert_url_to_field(time_period)  
-    regions = get_unique_regions_from_civs(civs)
+    era_name = civilisations_manager.convert_url_to_field(era_name)
+    time_period = civilisations_manager.convert_url_to_field(time_period)  
+    regions = civilisations_manager.get_unique_regions_from_civs(civs)
 
     return render_template('region_index_page.html', era_name=era_name, time_period=time_period, regions=regions)
 
@@ -160,24 +163,21 @@ def region_index_page(era_name, time_period):
 def civilisations_index_page(era_name, time_period, region):  
     civs = json_reader.read_civs_from_json_file(era_name, time_period)
 	
-    era_name = convert_url_to_field(era_name)
-    time_period = convert_url_to_field(time_period)
-    region = convert_url_to_field(region) 
-    filtered_civs = filter_civs_by_region(region , civs)
+    era_name = civilisations_manager.convert_url_to_field(era_name)
+    time_period = civilisations_manager.convert_url_to_field(time_period)
+    region = civilisations_manager.convert_url_to_field(region) 
+    filtered_civs = civilisations_manager.filter_civs_by_region(region , civs)
 
     return render_template('civilisations_index_page.html', era_name=era_name, time_period=time_period, 
                            region=region, civs=filtered_civs)
 
 @app.route('/<string:era_name>/<string:time_period>/<string:region>/<string:civ_name>/')
 def civilisation_page(era_name, time_period, region, civ_name):
-    print time_period
     civs = json_reader.read_civs_from_json_file(era_name, time_period)
      
-    civ_name = convert_url_to_field(civ_name)  
-    print time_period 
-    time_period = convert_url_to_field(time_period) 
-    print time_period
-    civ = get_civ_by_name(civ_name, civs)
+    civ_name = civilisations_manager.convert_url_to_field(civ_name)  
+    time_period = civilisations_manager.convert_url_to_field(time_period) 
+    civ = civilisations_manager.get_civ_by_name(civ_name, civs)
 
     return render_template('civilisation_page.html', era_name=era_name, 
                            time_period=time_period, region=region, civ=civ)

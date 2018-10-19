@@ -1,19 +1,30 @@
 {% extends 'base.html' %}
 {% block header %}
-  <h2>{% block title %}Admin Login{% endblock %}</h2>
+<div align="center">
+  <h3 style="margin-left:25px">{% block title %}Admin Login{% endblock %}</h3>
+</div>
 {% endblock %}
 
 {% block content %}
+<div class="container" align="center">
 {% if session['admin'] %}
 <p> You are logged in! </p>
+<a class="btn btn-primary" style="margin-bottom:10px;" href="{{ url_for('editor_page') }}" role="button">Go to Editor</a>
 <form action="/admin_logout/" method="POST">
-<input type="submit" value ="Log out">
+<input type="submit" class="btn btn-danger"  value ="Log out">
 </form>
 {% else %}
-<form action="/admin_login/" method="POST">
-  <input type="username" name="username" placeholder="Username">
-  <input type="password" name="password" placeholder="Password">
-  <input type="submit" value="Log in">
+<form action="/admin_login/"  method="POST">
+  <div class="form-group">
+    <input type="username" name="username" placeholder="Username" required>
+  </div>
+  <div class="form-group">
+  <input type="password" name="password" placeholder="Password" required>
+  </div>
+  <div class="form-group">
+  <input type="submit" class="btn btn-secondary" value="Login">
+  </div>
 </form>
 {% endif %}
+</div>
 {% endblock %}
