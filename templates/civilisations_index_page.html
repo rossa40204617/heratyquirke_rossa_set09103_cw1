@@ -10,14 +10,62 @@
 <div class="container" align="center">  
   <h3> You are exploring civilisations in {{region}} during the {{time_period}} </h3>
   <h4> Random Civilisation to check out today: </h4>
-  {% set max = civs|length %}
-  {% set random_number = range(0, max)|random|int %}  
-  <a class="thumbnail fancybox" rel="lightbox" style="width:40%" href="{{ url_for('civilisation_page', era_name=format_string(era_name), time_period=format_string(time_period), region=format_string(civs[random_number].region), civ_name=format_string(civs[random_number].name)) }}"> 
-    <img src="{{ url_for('static', filename='img/' + civs[random_number].image) }}" class="img-responsive" alt="random_civ">
-    <div class="caption">
-       <h4> Learn about the {{civs[random_number].name}}</h4>
+
+  <div class="container" align="center">
+  <div id="random_civs" class="carousel slide" data-ride="carousel">
+  
+    <ol class="carousel-indicators">
+      <li data-target="#random_civs" data-slide-to="0" class="active"></li>
+      <li data-target="#random_civs" data-slide-to="1"></li>
+      <li data-target="#random_civs" data-slide-to="2"></li>
+    </ol>
+
+    {% set max = civs|length %}	
+    <div class="carousel-inner" style="height:280px;width:420px">
+	
+      <div class="item active">
+	  {% set random_number = range(0, max)|random|int %}
+        <a href="{{ url_for('civilisation_page', era_name=format_string(era_name), time_period=format_string(time_period), region=format_string(civs[random_number].region), civ_name=format_string(civs[random_number].name)) }}">
+          <img src="{{ url_for('static', filename='img/' + format_string(civs[random_number].image)) }}" alt="random_civ_1">
+        </a>
+	<div class="carousel-caption">
+          <h3>{{civs[random_number].name}}</h3>
+        </div>
+      </div>
+
+      <div class="item">
+	  {% set random_number = range(0, max)|random|int %}
+        <a href="{{ url_for('civilisation_page', era_name=format_string(era_name), time_period=format_string(time_period), region=format_string(civs[random_number].region), civ_name=format_string(civs[random_number].name)) }}">
+          <img src="{{ url_for('static', filename='img/' + format_string(civs[random_number].image)) }}" alt="random_civ_2" >
+        </a>
+		<div class="carousel-caption">
+          <h3>{{civs[random_number].name}}</h3>
+        </div>
+      </div>
+
+      <div class="item">
+	  {% set random_number = range(0, max)|random|int %}
+        <a href="{{ url_for('civilisation_page', era_name=format_string(era_name), time_period=format_string(time_period), region=format_string(civs[random_number].region), civ_name=format_string(civs[random_number].name)) }}">
+          <img src="{{ url_for('static', filename='img/' + format_string(civs[random_number].image)) }}" alt="random_civ_3" >
+        </a> 
+		<div class="carousel-caption">
+          <h3>{{civs[random_number].name}}</h3>
+        </div>
+      </div>
     </div>
-  </a>
+
+    <a class="left carousel-control" href="#random_civs" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#random_civs" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</div>
+
+
   <h4> Select a civilisation to learn its story:</h4>
   {% for civ in civs %}
   <div class="col-md-3">
@@ -29,6 +77,8 @@
     </a>
   </div>
  {% endfor %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </div>
 {% endblock %}
 
