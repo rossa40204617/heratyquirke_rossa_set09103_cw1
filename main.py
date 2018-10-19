@@ -5,6 +5,7 @@ import os
 import json
 import json_reader
 import civilisations_manager
+from random import randint
 
 app = Flask(__name__)
 app.secret_key = 'this is a secret!!!'
@@ -123,11 +124,24 @@ def unauthorised_error(error):
   return render_template('404_error_page.html'), 401
 
 @app.context_processor
-def utility_processor():
+def format_processor():
   def format_for_url_from_string(string):
     result = string.replace(" ","_").lower()
     return result
   return dict(format_string=format_for_url_from_string)
+
+@app.context_processor
+def random_number_generator():
+  def generate_unique_random_number(previous_number, max_number):
+    maximum = max_number-1
+    number = previous_number
+    while number is previous_number:
+      print(number) 
+      print(previous_number)
+      number = randint(0, maximum)
+      if number != previous_number:
+        return number
+  return dict(get_random_number=generate_unique_random_number)
 
 if __name__ == ("__main__"):
     app.run(host='0.0.0.0', debug=True)

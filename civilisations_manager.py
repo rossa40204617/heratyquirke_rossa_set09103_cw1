@@ -5,19 +5,18 @@ import json
 def remove_civilisation(request):
 
    name = convert_url_to_field(request['name'])
-   region = convert_url_to_field(request['region'])
    time_period = convert_url_to_field(request['time_period'])
    era = convert_url_to_field(request['era'])
-
-   new_civ = {'name': name, 'region': region}
 
    filepath = construct_civilisation_filepath(era, time_period)
 
    with open(filepath) as f:
      civs = json.load(f)
 
-   civs.remove(new_civ)
-
+   for civ in civs:
+     if civ['name']  == name:
+       civs.remove(civ)
+   
    with open(filepath, 'w') as f:
      json.dump(civs, f)
    flash("The entry on: '" + name + "' has been removed.")
