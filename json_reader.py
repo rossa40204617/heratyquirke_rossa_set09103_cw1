@@ -12,5 +12,5 @@ def read_civs_from_json_file(era_name, time_period):
     filepath = 'civilisations/' + era_name.lower() + '/' + time_period.lower() + '/civilisations.json'
     with open((filepath), 'r') as f:
       json_data = json.load(f)
-    civs = [Civilisation(civ['name'], civ['region'], civ['image'], civ['info']) for civ in json_data]
+    civs = [Civilisation(civ['name'], civ['region'], civ['established'], civ['end_date'], civ['gov_type'], civ['religion'], civ['image'], civ['fun_fact'], civ['info']) for civ in json_data]
     return civs

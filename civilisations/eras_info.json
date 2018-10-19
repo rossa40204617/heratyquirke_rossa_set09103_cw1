@@ -12,9 +12,9 @@
         "name": "Medieval Era",
         "summary": "During the Medieval Era advancement in technology and weapons drove the creation of the first nation states.",
         "time_periods": [
-            "Early Medieval Period",
-            "High Medieval Period",
-            "Late Medieval Period"
+            "Early Middle Ages",
+            "High Middle Ages",
+            "Late Middle Ages"
         ],
         "image": "img/medieval_era.jpg"        
     },

@@ -13,15 +13,9 @@
 
   <div class="container" align="center">
   <div id="random_civs" class="carousel slide" data-ride="carousel">
-  
-    <ol class="carousel-indicators">
-      <li data-target="#random_civs" data-slide-to="0" class="active"></li>
-      <li data-target="#random_civs" data-slide-to="1"></li>
-      <li data-target="#random_civs" data-slide-to="2"></li>
-    </ol>
 
     {% set max = civs|length %}	
-    <div class="carousel-inner" style="height:280px;width:420px">
+    <div class="carousel-inner" style="height:320px;width:470px">
 	
       <div class="item active">
 	  {% set random_number = range(0, max)|random|int %}
@@ -38,7 +32,7 @@
         <a href="{{ url_for('civilisation_page', era_name=format_string(era_name), time_period=format_string(time_period), region=format_string(civs[random_number].region), civ_name=format_string(civs[random_number].name)) }}">
           <img src="{{ url_for('static', filename='img/' + format_string(civs[random_number].image)) }}" alt="random_civ_2" >
         </a>
-		<div class="carousel-caption">
+        <div class="carousel-caption">
           <h3>{{civs[random_number].name}}</h3>
         </div>
       </div>
