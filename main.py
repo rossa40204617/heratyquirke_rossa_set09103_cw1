@@ -10,10 +10,6 @@ from random import randint
 app = Flask(__name__)
 app.secret_key = 'this is a secret!!!'
 
-@app.route('/test/')
-def test():
-  return render_template('test.html')
-
 @app.route('/home/')
 @app.route('/')
 def home_page():
@@ -21,7 +17,7 @@ def home_page():
     
     return render_template('era_index_page.html', eras=eras )
 
-@app.route('/admin_login/', methods=['POST', 'GET'])
+@app.route('/admin_login', methods=['POST', 'GET'], strict_slashes=False)
 def admin_login():
     if request.method == 'POST':  
       if request.form['username'] == 'admin' and request.form['password'] == 'root':
@@ -32,7 +28,7 @@ def admin_login():
     else:
       return render_template('admin_login_page.html')
 
-@app.route('/admin_logout/', methods=['POST', 'GET'])
+@app.route('/admin_logout', methods=['POST', 'GET'], strict_slashes=False)
 def admin_logout():
   session['admin'] = False
   flash("You have been logged out")
@@ -48,7 +44,7 @@ def editor_page():
   flash("You need to be logged in as Admin to access that page")
   return redirect(url_for('admin_login'))
 
-@app.route('/editor/add_civilisation/', methods=['POST', 'GET'])
+@app.route('/editor/add_civilisation', methods=['POST', 'GET'], strict_slashes=False)
 def add_civilisation():
   try:
     if session['admin']:
@@ -62,7 +58,7 @@ def add_civilisation():
   flash("You need to be logged in as Admin to access that page")
   return redirect(url_for('admin_login')) 
 
-@app.route('/editor/remove_civilisation/', methods=['POST', 'GET'])
+@app.route('/editor/remove_civilisation', methods=['POST', 'GET'], strict_slashes=False)
 def remove_civilisation():
   try:
     if session['admin']:
@@ -83,7 +79,7 @@ def time_period_index_page(era_name):
 
     return render_template('time_period_index_page.html', era=era)
 
-@app.route('/<string:era_name>/<string:time_period>')
+@app.route('/<string:era_name>/<string:time_period>/')
 def region_index_page(era_name, time_period):
     civs = json_reader.read_civs_from_json_file(era_name, time_period)
 
@@ -96,16 +92,19 @@ def region_index_page(era_name, time_period):
 @app.route('/<string:era_name>/<string:time_period>/<string:region>/')
 def civilisations_index_page(era_name, time_period, region):  
     civs = json_reader.read_civs_from_json_file(era_name, time_period)
-	
+    
     era_name = civilisations_manager.convert_url_to_field(era_name)
     time_period = civilisations_manager.convert_url_to_field(time_period)
     region = civilisations_manager.convert_url_to_field(region) 
     filtered_civs = civilisations_manager.filter_civs_by_region(region , civs)
 
+    if not filtered_civs:  
+      return redirect(url_for('region_index_page', era_name=civilisations_manager.format_for_url_from_string(era_name), time_period=civilisations_manager.format_for_url_from_string(time_period)))
+    
     return render_template('civilisations_index_page.html', era_name=era_name, time_period=time_period, 
                            region=region, civs=filtered_civs)
 
-@app.route('/<string:era_name>/<string:time_period>/<string:region>/<string:civ_name>/')
+@app.route('/<string:era_name>/<string:time_period>/<string:region>/<string:civ_name>', strict_slashes=False)
 def civilisation_page(era_name, time_period, region, civ_name):
     civs = json_reader.read_civs_from_json_file(era_name, time_period)
      
@@ -119,10 +118,6 @@ def civilisation_page(era_name, time_period, region, civ_name):
 def page_not_found(error):
   return render_template('404_error_page.html'), 404
 
-@app.errorhandler(401)
-def unauthorised_error(error):
-  return render_template('404_error_page.html'), 401
-
 @app.context_processor
 def format_processor():
   def format_for_url_from_string(string):
@@ -132,15 +127,12 @@ def format_processor():
 
 @app.context_processor
 def random_number_generator():
-  def generate_unique_random_number(previous_number, max_number):
+  def generate_unique_random_number(max_number, previous_numbers = [],*args):
     maximum = max_number-1
-    number = previous_number
-    while number is previous_number:
-      print(number) 
-      print(previous_number)
+    number = randint(0, maximum)
+    while number in previous_numbers:
       number = randint(0, maximum)
-      if number != previous_number:
-        return number
+    return number  
   return dict(get_random_number=generate_unique_random_number)
 
 if __name__ == ("__main__"):
