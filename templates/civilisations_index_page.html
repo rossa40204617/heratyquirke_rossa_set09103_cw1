@@ -7,47 +7,48 @@
 {% endblock %}
 
 {% block content %}
-<div class="container" align="center">  
+ <div class="container" align="center">
+ 
+
   <h3> You are exploring civilisations in {{region}} during the {{time_period}} </h3>
   <h4> Random Civilisation to check out today: </h4>
-
-  <div class="container" align="center">
-  <div id="random_civs" class="carousel slide" data-ride="carousel">
-
-    {% set max = civs|length %}	
-    <div class="carousel-inner" style="height:320px;width:470px">
+   
+   <div id="random_civs" class="carousel slide" data-ride="carousel">
+       {% set max = civs|length %}	
+    <div class="carousel-inner" style="height:340px;width:490px">
 	
       <div class="item active">
 	  {% set random_number = range(0, max)|random|int %}
         <a href="{{ url_for('civilisation_page', era_name=format_string(era_name), time_period=format_string(time_period), region=format_string(civs[random_number].region), civ_name=format_string(civs[random_number].name)) }}">
-          <img src="{{ url_for('static', filename='img/' + format_string(civs[random_number].image)) }}" alt="random_civ_1">
+          <img src="{{ url_for('static', filename='img/' + format_string(civs[random_number].image)) }}" style="height:340px;width:490px"  alt="random_civ_1">
         </a>
 	<div class="carousel-caption">
-          <h3>{{civs[random_number].name}}</h3>
+          <h3><mark>{{civs[random_number].name}}</mark></h3>
+          <p><mark>{{civs[random_number].fun_fact}}</mark></p>
         </div>
       </div>
 
       <div class="item">
 	  {% set random_number = range(0, max)|random|int %}
         <a href="{{ url_for('civilisation_page', era_name=format_string(era_name), time_period=format_string(time_period), region=format_string(civs[random_number].region), civ_name=format_string(civs[random_number].name)) }}">
-          <img src="{{ url_for('static', filename='img/' + format_string(civs[random_number].image)) }}" alt="random_civ_2" >
+          <img src="{{ url_for('static', filename='img/' + format_string(civs[random_number].image)) }}" style="height:340px;width:490px"  alt="random_civ_2" >
         </a>
         <div class="carousel-caption">
-          <h3>{{civs[random_number].name}}</h3>
+          <h3><mark>{{civs[random_number].name}}</mark></h3>
+          <p><mark>{{civs[random_number].fun_fact}}</mark></p>
         </div>
       </div>
 
       <div class="item">
 	  {% set random_number = range(0, max)|random|int %}
         <a href="{{ url_for('civilisation_page', era_name=format_string(era_name), time_period=format_string(time_period), region=format_string(civs[random_number].region), civ_name=format_string(civs[random_number].name)) }}">
-          <img src="{{ url_for('static', filename='img/' + format_string(civs[random_number].image)) }}" alt="random_civ_3" >
+          <img src="{{ url_for('static', filename='img/' + format_string(civs[random_number].image)) }}" style="height:340px;width:490px"   alt="random_civ_3" >
         </a> 
-		<div class="carousel-caption">
-          <h3>{{civs[random_number].name}}</h3>
+        <div class="carousel-caption">
+          <h3><mark>{{civs[random_number].name}}</mark></h3>
+          <p><mark>{{civs[random_number].fun_fact}}</mark></p>
         </div>
       </div>
-    </div>
-
     <a class="left carousel-control" href="#random_civs" data-slide="prev">
       <span class="glyphicon glyphicon-chevron-left"></span>
       <span class="sr-only">Previous</span>
