@@ -64,7 +64,7 @@ def remove_civilisation():
     if session['admin']:
       if request.method == 'POST':
         civilisations_manager.remove_civilisation(request.form)
-    return render_template('remove_civilisation_page.html')
+      return render_template('remove_civilisation_page.html')
   except KeyError:
     pass
   flash("You need to be logged in as Admin to access that page")
