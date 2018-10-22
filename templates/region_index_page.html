@@ -40,8 +40,9 @@
 }
 </style>
 
- <p> Choose a region to explore the civilisations living there during the {{time_period}}!</p>
+   <p> Choose a region to explore the civilisations living there during the {{time_period}}, or click below to see all {{time_period}} civilisations</p>
    <div class="container">   
+   <a href="{{ url_for('civilisations_index_page', era_name=format_string(era_name), time_period=format_string(time_period), region="all") }}" class="btn btn-success" role="button">See all Civilisations</a> 
    <img src="{{ url_for('static', filename='img/world_map.png') }}" width=1150 class="img-responsive" >
      {% if ('Europe' in regions) %}
      <div class="europe">
