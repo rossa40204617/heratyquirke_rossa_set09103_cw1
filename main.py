@@ -106,6 +106,48 @@ def civilisations_index_page(era_name, time_period, region):
     return render_template('civilisations_index_page.html', era_name=era_name, time_period=time_period, 
                            region=region, civs=civs)
 
+
+@app.route('/civilisations/<string:era_name>/<string:time_period>/religion/<string:religion>/')
+def civilisations_filter_by_religion_index(era_name, time_period, religion):
+    civs = json_reader.read_civs_from_json_file(era_name, time_period)
+        
+    era_name = civilisations_manager.convert_url_to_field(era_name)
+    time_period = civilisations_manager.convert_url_to_field(time_period)
+    religion = civilisations_manager.convert_url_to_field(religion)
+
+    filtered_civs = []
+    
+    for civ in civs:
+      if civ.religion.lower() == religion.lower():
+        filtered_civs.append(civ)
+
+    if not filtered_civs:
+      flash("No entries for civilisations with the religion: '" + religion + "'")
+      return redirect(url_for('civilisations_index_page', era_name=civilisations_manager.format_for_url_from_string(era_name), time_period=civilisations_manager.format_for_url_from_string(time_period), region='all'))
+ 
+    return render_template('civilisations_index_page.html', era_name=era_name, time_period=time_period, region='all', civs=filtered_civs) 
+
+
+@app.route('/civilisations/<string:era_name>/<string:time_period>/government/<string:gov_type>/')
+def civilisations_filter_by_gov_index(era_name, time_period, gov_type):
+    civs = json_reader.read_civs_from_json_file(era_name, time_period)
+        
+    era_name = civilisations_manager.convert_url_to_field(era_name)
+    time_period = civilisations_manager.convert_url_to_field(time_period)
+    gov_type = civilisations_manager.convert_url_to_field(gov_type)
+
+    filtered_civs = []
+   
+    for civ in civs:
+      if civ.gov_type.lower() == gov_type.lower():
+        filtered_civs.append(civ)
+
+    if not filtered_civs:
+      flash("No entries for civilisations with the government type: '" + gov_type + "'")
+      return redirect(url_for('civilisations_index_page', era_name=civilisations_manager.format_for_url_from_string(era_name), time_period=civilisations_manager.format_for_url_from_string(time_period), region='all'))
+    
+    return render_template('civilisations_index_page.html', era_name=era_name, time_period=time_period, region='all', civs=filtered_civs) 
+
 @app.route('/civilisations/<string:era_name>/<string:time_period>/<string:region>/<string:civ_name>', strict_slashes=False)
 def civilisation_page(era_name, time_period, region, civ_name):
     civs = json_reader.read_civs_from_json_file(era_name, time_period)

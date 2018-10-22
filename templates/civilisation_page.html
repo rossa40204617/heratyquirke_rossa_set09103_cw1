@@ -17,8 +17,8 @@
   <h4><b> Region: <a href = {{ url_for('civilisations_index_page', era_name=format_string(era_name), time_period=format_string(time_period), region=format_string(civ.region)) }}>{{civ.region}}</a> </b></h4>
   <h4><b> Time period: <a href = {{ url_for('region_index_page', era_name=format_string(era_name), time_period=format_string(time_period)) }}>{{time_period}}</a> </b></h4>
   <h4><b>From </b> {{civ.established}} <b>to</b> {{civ.end_date}}</h4>
-  <h4><b> Govermnet type:</b> {{civ.gov_type}}</h4>
-  <h4><b> Religion:</b> {{civ.religion}}</h4>
+  <h4><b> Govermnet type: <a href = {{ url_for('civilisations_filter_by_gov_index', era_name=format_string(era_name), time_period=format_string(time_period), gov_type=format_string(civ.gov_type)) }}>{{civ.gov_type}}</a></b></h4>
+  <h4><b> Religion: <a href = {{ url_for('civilisations_filter_by_religion_index', era_name=format_string(era_name), time_period=format_string(time_period), religion=format_string(civ.religion)) }}>{{civ.religion}}</a></b></h4>
   <h4><b>Story:</b></h4>
   <h4>{{civ.info}} </h4>
 </div>

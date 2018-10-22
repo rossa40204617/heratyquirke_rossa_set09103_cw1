@@ -65,7 +65,7 @@
 </div>
 {% endif %}
 
-<h4> Select a civilisation to learn its story:</h4>
+<h4><b>Select a civilisation below to learn its story:</b></h4>
 {% for civ in civs %}
   <div class="col-md-3">
     <a class="thumbnail fancybox" rel="lightbox" href="{{ url_for('civilisation_page', era_name=format_string(era_name), time_period=format_string(time_period), region=format_string(region), civ_name=format_string(civ.name)) }}" >
