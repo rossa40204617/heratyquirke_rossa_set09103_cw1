@@ -8,7 +8,7 @@
 
 {% block content %}
 <div class="container" align="center">
-  {% if region == None %}
+  {% if region == 'all' %}
   <h3> You are exploring civilisations in all regions during the <a href="{{ url_for('region_index_page', era_name=format_string(era_name), time_period=format_string(time_period)) }}">{{time_period}}</a>. </h3>
   {% else %}
   <h3> You are exploring civilisations in {{region}} during the <a href="{{ url_for('region_index_page', era_name=format_string(era_name), time_period=format_string(time_period)) }}">{{time_period}}</a>. </h3>
@@ -27,8 +27,7 @@
           <img src="{{ url_for('static', filename='img/' + format_string(civs[random_number].image)) }}" style="height:340px;width:490px"  alt="random_civ_1">
         </a>
 	<div class="carousel-caption">
-          <h3><mark>{{civs[random_number].name}}</mark></h3>
-          <p><mark>{{civs[random_number].fun_fact|capitalize}}</mark></p>
+          <p><kbd>{{civs[random_number].fun_fact|capitalize}}</kbd></p>
         </div>
       </div>
       {% set previous_numbers = [random_number]  %}
@@ -38,8 +37,7 @@
           <img src="{{ url_for('static', filename='img/' + format_string(civs[random_number_2].image)) }}" style="height:340px;width:490px"  alt="random_civ_2" >
         </a>
         <div class="carousel-caption">
-          <h3><mark>{{civs[random_number_2].name}}</mark></h3>
-          <p><mark>{{civs[random_number_2].fun_fact|capitalize}}</mark></p>
+          <p><kbd>{{civs[random_number_2].fun_fact|capitalize}}</kbd></p>
         </div>
       </div>
       {% set previous_numbers = [random_number, random_number_2] %}
@@ -49,8 +47,7 @@
           <img src="{{ url_for('static', filename='img/' + format_string(civs[random_number_3].image)) }}" style="height:340px;width:490px"   alt="random_civ_3" >
         </a> 
         <div class="carousel-caption">
-          <h3><mark>{{civs[random_number_3].name}}</mark></h3>
-          <p><mark>{{civs[random_number_3].fun_fact|capitalize}}</mark></p>
+          <p><kbd>{{civs[random_number_3].fun_fact|capitalize}}</kbd></p>
         </div>
       </div>
     <a class="left carousel-control" href="#random_civs" data-slide="prev">
@@ -71,7 +68,7 @@
     <a class="thumbnail fancybox" rel="lightbox" href="{{ url_for('civilisation_page', era_name=format_string(era_name), time_period=format_string(time_period), region=format_string(region), civ_name=format_string(civ.name)) }}" >
       <img src="{{ url_for('static', filename='img/' + format_string(civ.image)) }}" style="height:20%" class="img-responsive" />
       <div class="caption">
-        <h4>{{civ.name}}</h4>
+        <h4><b>{{civ.name}}</b></h4>
       </div>
     </a>
   </div>

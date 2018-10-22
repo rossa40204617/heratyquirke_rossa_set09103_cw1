@@ -9,33 +9,33 @@
 <style>
 .europe {
     position: absolute;
-    top: 30%;
+    top: 34%;
     right: 45%;
 }
 .asia {
     position: absolute;
-    top: 34%;
+    top: 36%;
     right: 32%;
 }
 .north_america {
     position: absolute;
-    top: 35%;
+    top: 39%;
     left: 26%;
 }
 
 .south_america {
     position: absolute;
-    top: 55%;
+    top: 60%;
     left: 32.5%;
 }
 .africa {
     position: absolute;
-    top: 44%;
+    top: 48%;
     right: 46%;
 }
 .australia {
     position: absolute;
-    bottom: 30%;
+    bottom: 26%;
     right: 22%;
 }
 </style>
@@ -46,7 +46,7 @@
    <img src="{{ url_for('static', filename='img/world_map.png') }}" width=1150 class="img-responsive" >
      {% if ('Europe' in regions) %}
      <div class="europe">
-        <a href={{ url_for('civilisations_index_page', era_name=format_string(era_name), time_period=format_string(time_period), region="europe") }} class="btn btn-lg" style="color:yellow" role="button">Europe</a> 
+        <a href={{ url_for('civilisations_index_page', era_name=format_string(era_name), time_period=format_string(time_period), region="europe") }} class="btn btn-lg" style="color:yellow;" role="button">Europe</a> 
      </div>
      {% endif %}
      {% if ('Asia' in regions) %}
